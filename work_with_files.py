@@ -23,3 +23,21 @@ def read_cook_book():
 
 
 print(read_cook_book())
+
+
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book = read_cook_book()
+    shop_list = {}
+    for dish in dishes:
+        ingredients = cook_book[dish]
+        for ingredient in ingredients:
+            shop_list = {
+                ingredient['ingredient_name']: {
+                    'measure': ingredient['measure'], 'quantity': ingredient['quantity'] * person_count
+                }
+            }
+            print(shop_list)
+    return shop_list
+
+
+print(get_shop_list_by_dishes(['Утка по-пекински', 'Омлет'], 12))
