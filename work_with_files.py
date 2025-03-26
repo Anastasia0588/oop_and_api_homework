@@ -1,4 +1,4 @@
-def read_cook_book():
+def read_cook_book():  # Задача №1
     cook_book = {}
     lines_list = []
     with open('recipes.txt', encoding="utf-8") as f:
@@ -25,19 +25,39 @@ def read_cook_book():
 print(read_cook_book())
 
 
-def get_shop_list_by_dishes(dishes, person_count):
+def get_shop_list_by_dishes(dishes, person_count):  # Задача #2
     cook_book = read_cook_book()
     shop_list = {}
     for dish in dishes:
         ingredients = cook_book[dish]
         for ingredient in ingredients:
-            shop_list = {
-                ingredient['ingredient_name']: {
-                    'measure': ingredient['measure'], 'quantity': ingredient['quantity'] * person_count
-                }
+            shop_list[ingredient['ingredient_name']] = {
+                'measure': ingredient['measure'],
+                'quantity': ingredient['quantity'] * person_count
             }
-            print(shop_list)
     return shop_list
 
 
 print(get_shop_list_by_dishes(['Утка по-пекински', 'Омлет'], 12))
+
+
+def open_all_files():  # Задача 3
+    file_information = []
+    for i in range(1, 4):
+        with open(f'pyapi_homework/{i}.txt', encoding='utf-8') as f:
+            lines_list = f.readlines()
+            file_information.append({
+                'file': f'{i}.txt',
+                'lines_count': str(len(lines_list)),
+                'text': lines_list})
+    file_information.sort(key=lambda item: item['lines_count'])
+    with open('all_files_info.txt', 'a', encoding='utf-8') as output:
+        for data in file_information:
+            output.write(f'{data['file']}\n')
+            output.write(f'{data['lines_count']}\n')
+            for line in data['text']:
+                output.write(f'{line}')
+            output.write("\n")
+
+
+open_all_files()
