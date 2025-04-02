@@ -31,14 +31,17 @@ def get_shop_list_by_dishes(dishes, person_count):  # Задача #2
     for dish in dishes:
         ingredients = cook_book[dish]
         for ingredient in ingredients:
-            shop_list[ingredient['ingredient_name']] = {
-                'measure': ingredient['measure'],
-                'quantity': ingredient['quantity'] * person_count
-            }
+            if ingredient['ingredient_name'] not in shop_list:
+                shop_list[ingredient['ingredient_name']] = {
+                    'measure': ingredient['measure'],
+                    'quantity': ingredient['quantity'] * person_count
+                }
+            else:
+                shop_list[ingredient['ingredient_name']]['quantity'] += ingredient['quantity'] * person_count
     return shop_list
 
 
-print(get_shop_list_by_dishes(['Утка по-пекински', 'Омлет'], 12))
+print(get_shop_list_by_dishes(['Фахитос', 'Фахитос'], 3))
 
 
 def open_all_files():  # Задача 3
